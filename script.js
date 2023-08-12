@@ -1,31 +1,17 @@
-let computerChoice;
 let computerScore = 0;
-let playerChoice;
 let playerScore = 0;
-
-function getPlayerChoice() {
-  playerChoice = prompt("choose rock, paper, scissors").toLowerCase();
-  while (
-    playerChoice !== "rock" &&
-    playerChoice !== "paper" &&
-    playerChoice !== "scissors"
-  ) {
-    playerChoice = prompt("must enter rock, paper, or scissors").toLowerCase();
-  }
-  return playerChoice;
-}
+let roundsPlayed = 0;
 
 const choices = ["rock", "paper", "scissors"];
 
 function getComputerChoice() {
-  computerChoice = choices[Math.floor(Math.random() * choices.length)];
-  return computerChoice;
+  return choices[Math.floor(Math.random() * choices.length)];
 }
 
-function playRound(playerChoice, computerChoice) {
-  playerChoice = getPlayerChoice();
-  computerChoice = getComputerChoice();
-  if (playerChoice == computerChoice) {
+function playRound(playerChoice) {
+  const computerChoice = getComputerChoice();
+
+  if (playerChoice === computerChoice) {
     return `
     you chose ${playerChoice} - computer chose ${computerChoice}
     draw 
@@ -43,7 +29,7 @@ function playRound(playerChoice, computerChoice) {
     current score: P:${playerScore} C:${computerScore}
     `;
   } else {
-    computerScore = +1;
+    computerScore += 1;
     return `
     you chose ${playerChoice} - computer chose ${computerChoice}
     computer wins
@@ -52,15 +38,30 @@ function playRound(playerChoice, computerChoice) {
   }
 }
 
-function playGame() {
-  for (let i = 0; i < 5; i++) console.log(playRound(i));
-}
-playGame();
+const buttons = document.querySelectorAll("button");
+buttons.forEach((button) => {
+  button.addEventListener("click", (event) => {
+    if (roundsPlayed < 5) {
+      const playerChoice = event.target.value;
+      const result = playRound(playerChoice);
+      console.log(result);
+
+      if (playerScore >= 3 || computerScore >= 3 || roundsPlayed === 5) {
+        console.log(gameOver());
+        playerScore = 0;
+        computerScore = 0;
+        roundsPlayed = 0;
+      }
+    }
+  });
+});
 
 function gameOver() {
-  if (playerScore > computerScore) {
+  if (playerScore === 0 && computerScore === 0) {
+    return `Welcome To RPS`;
+  } else if (playerScore >= 3) {
     return `YOU WIN THE GAME`;
-  } else if (computerScore > playerScore) {
+  } else if (computerScore >= 3) {
     return `YOU LOSE`;
   } else {
     return `GAME WAS A DRAW`;
