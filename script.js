@@ -48,7 +48,7 @@ buttons.forEach((button) => {
       roundsPlayed++;
 
       if (playerScore >= 3 || computerScore >= 3 || roundsPlayed === 5) {
-        console.log(game());
+        console.log(gameOver());
         playerScore = 0;
         computerScore = 0;
         roundsPlayed = 0;
@@ -57,7 +57,7 @@ buttons.forEach((button) => {
   });
 });
 
-function game() {
+function gameOver() {
   if (playerScore === 0 && computerScore === 0) {
     return `Welcome To RPS`;
   } else if (playerScore >= 3) {
