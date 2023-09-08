@@ -60,6 +60,8 @@ buttons.forEach((button) => {
 function gameOver() {
   if (playerScore === 0 && computerScore === 0) {
     return `Welcome To RPS`;
+  } else if (playerScore === 0 && computerScore === 0 && roundsPlayed === 5) {
+    return `Nobody Scored Draw`;
   } else if (playerScore >= 3) {
     return `YOU WIN THE GAME`;
   } else if (computerScore >= 3) {
