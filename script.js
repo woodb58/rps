@@ -25,14 +25,14 @@ function playRound(playerChoice) {
     playerScore += 1;
     return `
     you chose ${playerChoice} - computer chose ${computerChoice}
-    you win 
+    you win this round
     current score: P:${playerScore} C:${computerScore}
     `;
   } else {
     computerScore += 1;
     return `
     you chose ${playerChoice} - computer chose ${computerChoice}
-    computer wins
+    computer wins this round
     current score: P:${playerScore} C:${computerScore}
     `;
   }
@@ -45,9 +45,10 @@ buttons.forEach((button) => {
       const playerChoice = event.target.value;
       const result = playRound(playerChoice);
       console.log(result);
+      roundsPlayed++;
 
       if (playerScore >= 3 || computerScore >= 3 || roundsPlayed === 5) {
-        console.log(gameOver());
+        console.log(game());
         playerScore = 0;
         computerScore = 0;
         roundsPlayed = 0;
@@ -56,7 +57,7 @@ buttons.forEach((button) => {
   });
 });
 
-function gameOver() {
+function game() {
   if (playerScore === 0 && computerScore === 0) {
     return `Welcome To RPS`;
   } else if (playerScore >= 3) {
@@ -67,4 +68,3 @@ function gameOver() {
     return `GAME WAS A DRAW`;
   }
 }
-console.log(gameOver());
